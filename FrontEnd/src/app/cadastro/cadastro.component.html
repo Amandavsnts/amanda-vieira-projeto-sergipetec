@@ -1,0 +1,79 @@
+<nav class="navbar navbar bg-dark">
+    <div class="container-fluid">
+        <h1 style="color: white;">Cadastro de Contribuintes</h1>
+        <div class="d-flex">
+            <button (click)="clickAdicionar()" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-outline-success">Adicionar</button>
+        </div>
+    </div>
+</nav>
+
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Email</th>
+            <th scope="col">CPF</th>
+            <th scope="col">Telefone</th>
+            <th scope="col">Celular</th>
+            <th scope="col">Ação</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let row of cadastroData">
+            <td>{{row.id}}</td>
+            <td>{{row.nome}}</td>
+            <td>{{row.email}}</td>
+            <td>{{row.cpf}}</td>
+            <td>{{row.telefone}}</td>
+            <td>{{row.celular}}</td>
+            <td>
+                <button (click)="ativarEditar(row)" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-info">Editar</button>
+                <button (click)="deleteCadastros(row)" class="btn btn-danger mx-3">Deletar</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Adicionar Contribuinte</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="formValue">
+                <div class="mb-3">
+                    <label for="exampleInputName" class="form-label">Nome</label>
+                    <input type="text" formControlName="nome" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Email</label>
+                    <input type="email" formControlName="email" class="form-control" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">CPF</label>
+                    <input type="number" formControlName="cpf" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Telefone</label>
+                    <input type="tel" formControlName="telefone" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Celular</label>
+                    <input type="tel" formControlName="celular" class="form-control">
+                </div>
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="cancel" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+          <button type="button" *ngIf="verAdicionar" class="btn btn-primary" (click)="postCadastroDetalhes()">Salvar</button>
+          <button type="button" *ngIf="verAlterar" class="btn btn-primary" (click)="updateCadastroDetalhes()">Alterar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
