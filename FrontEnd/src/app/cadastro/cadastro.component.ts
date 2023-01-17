@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, FormControl } from "@angular/forms";
 import { ApiService } from '../BackEnd/api.service';
 import { CadastroModel } from "./cadastro.model";
 
@@ -22,11 +22,21 @@ export class CadastroComponent implements OnInit {
 
   ngOnInit(): void {
     this.formValue = this.formbuilder.group({
-      nome : [''],
-      email : [''],
-      cpf : [''],
-      telefone : [''],
-      celular  : [''],
+      nome : new FormControl ('', [Validators.required, 
+        Validators.minLength(3), 
+        Validators.maxLength(20)]),
+      email : new FormControl ('', [Validators.required, 
+        Validators.email]),
+      cpf : new FormControl ('', [Validators.required, 
+        Validators.min(11), 
+        Validators.max(11),]),
+      telefone : new FormControl ('', [ Validators.required, 
+        Validators.pattern("^[0-9]*$"), Validators.minLength(10), 
+        Validators.maxLength(11)]),
+      celular  : new FormControl ('', [ Validators.required, 
+        Validators.pattern("^[0-9]*$"), 
+        Validators.minLength(11), 
+        Validators.maxLength(11)]),
     })
     this.getAllCadastros();
   }
